@@ -1,4 +1,5 @@
 <script>
+  // @ts-nocheck
   import { onMount } from "svelte";
   import * as d3 from "d3";
   import { treeData } from "$lib/data/treeData.js";
@@ -83,6 +84,8 @@
   });
 </script>
 
+<h1>Tree Graph</h1>
+
 <div bind:this={treeContainer} class="tree-container"></div>
 
 <style>
@@ -91,5 +94,20 @@
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+    /* Asegúrate de que el body no tenga scroll si quieres toda la pantalla */
+    body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* Evita scroll en toda la página */
+  }
+
+  /* Contenedor para el árbol */
+  .tree-container {
+    width: 100vw;       /* Ocupa todo el ancho de la ventana */
+    height: 100vh;      /* Ocupa todo el alto de la ventana */
+    overflow: hidden;   /* Oculta scroll si el contenido se pasa de tamaño */
+    margin: 0;
+    padding: 0;
   }
 </style>
