@@ -18,22 +18,22 @@
 
     const treeLayout = d3.tree().size([width - 100, height - 100]);
 
-    // Convertir `treeData` en una jerarquía
+    // convert the flat data into a hierarchy
     const root = d3.hierarchy(treeData, d => d.children);
     treeLayout(root);
 
-    // Dibujar las líneas (links)
+    // Draw links
     svg.selectAll("line")
       .data(root.links())
       .enter()
       .append("line")
       .attr("x1", d => d.source.x)
-      .attr("y1", d => d.source.y + 20) // Ajustar para conectar con el rectángulo
+      .attr("y1", d => d.source.y + 20) 
       .attr("x2", d => d.target.x)
-      .attr("y2", d => d.target.y - 20) // Ajustar para conectar con el rectángulo
+      .attr("y2", d => d.target.y - 20)
       .attr("stroke", "#ccc");
 
-    // Crear nodos con rectángulos
+    // draw nodes
     const nodeGroup = svg.selectAll(".node")
       .data(root.descendants())
       .enter()
@@ -41,7 +41,7 @@
       .attr("class", "node")
       .attr("transform", d => `translate(${d.x - 75}, ${d.y - 30})`);
 
-    // Rectángulo de cada nodo
+    // each node is a group with a rectangle and text
     nodeGroup.append("rect")
       .attr("width", 150)
       .attr("height", 60)
@@ -50,7 +50,7 @@
       .attr("rx", 5)
       .attr("ry", 5);
 
-    // Primera línea: Mostrar el ID (node_id)
+    //  ID (node_id)
     nodeGroup.append("text")
       .attr("x", 75)
       .attr("y", 20)
@@ -59,7 +59,7 @@
       .style("fill", "#555")
       .text(d => d.data.node_id);
 
-    // Segunda línea: Mostrar el Nombre
+    // Name
     nodeGroup.append("text")
       .attr("x", 75)
       .attr("y", 35)
@@ -69,7 +69,7 @@
       .style("fill", "#000")
       .text(d => d.data.name);
 
-    // Tercera línea: Mostrar el Severity con color
+    // Severity 
     nodeGroup.append("text")
       .attr("x", 75)
       .attr("y", 50)
@@ -95,18 +95,17 @@
     justify-content: center;
     align-items: center;
   }
-    /* Asegúrate de que el body no tenga scroll si quieres toda la pantalla */
     body {
     margin: 0;
     padding: 0;
-    overflow: hidden; /* Evita scroll en toda la página */
+    overflow: hidden; /* avoid scroll */
   }
 
-  /* Contenedor para el árbol */
+  /* Tree container */
   .tree-container {
-    width: 100vw;       /* Ocupa todo el ancho de la ventana */
-    height: 100vh;      /* Ocupa todo el alto de la ventana */
-    overflow: hidden;   /* Oculta scroll si el contenido se pasa de tamaño */
+    width: 100vw;       
+    height: 100vh;     
+    overflow: hidden;   
     margin: 0;
     padding: 0;
   }
