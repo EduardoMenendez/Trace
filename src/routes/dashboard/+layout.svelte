@@ -11,6 +11,5 @@
     .container{
         display: flex;
         gap: 30px;
-        height: 200vh;
     }
 </style>
