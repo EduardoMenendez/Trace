@@ -1,5 +1,6 @@
 <script>
     import {projects, shared} from '$lib/data/projects';
+    import { goto } from '$app/navigation';
     const recents = [
         {title: "Base Perimeter Network", date: "Nov 7, 2024"},
         {title: "Mission Control Portal", date: "Nov 6, 2024"},
@@ -54,7 +55,7 @@
                     <p>{project.last_edit}</p>
                     <p>{project.lead}</p>
                     <div class="button-holder">
-                        <button class="primary-button">Run Scan</button>
+                        <button class="primary-button" onclick={()=>{goto(`/${project.id}/tools`)}}>Run Scan</button>
                         <button class="secondary-button" style="background: none;"><img src="/img/options.svg" alt="" style="width: 20px; background: none;"></button>
                     </div>
                 </div>
