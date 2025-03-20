@@ -11,7 +11,7 @@
 <div class="container">
     <h1>Elevate Your Security <br/>Strategy with TRACE</h1>
     <p>A Cybersecurity Platform to Protect Digital Assets. Detect <br/>Vunerabilities, Strengthen Defense, and Secure Your Network Seamlessly. <br/>Gain Real-Time insights and Proactive Protection.</p>
-    <a href="/dashboard" class="button">Start</a>
+    <a href="/auth" class="button">Start</a>
 </div>
 
 <style>
