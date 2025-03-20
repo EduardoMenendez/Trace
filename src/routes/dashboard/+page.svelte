@@ -128,7 +128,7 @@
         flex-direction: column;
         gap: 10px;
     }
-    textarea, input[type="text"], input[type="date"], input[type="time"]{
+    textarea, .half>input[type="text"], input[type="date"], input[type="time"]{
         border-radius: 5px;
         padding: 10px;
         width: 100%;
