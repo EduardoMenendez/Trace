@@ -20,7 +20,7 @@
             <div class={"holder "+site.severity}></div>
             <p style="text-align: left; padding-left: 20px;">{site.parent}</p>
             <p style="text-align: left;">{site.severity}</p>
-            <button class="primary-button" onclick={()=>{goto('tree/WebTree')}}>Join</button>
+            <button class="primary-button" onclick={()=>{goto('tree/WebTree')}}>View</button>
         </div>
     {/each}
 </div>

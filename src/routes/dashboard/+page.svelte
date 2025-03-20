@@ -1,6 +1,7 @@
 <script>
     import {projects, shared} from '$lib/data/projects';
     import { goto } from '$app/navigation';
+    import Modal from '$lib/components/modal.svelte';
     const recents = [
         {title: "Base Perimeter Network", date: "Nov 7, 2024"},
         {title: "Mission Control Portal", date: "Nov 6, 2024"},
@@ -14,12 +15,13 @@
     function updateState(option) {
         active = option;
     }
+    let showModal = $state(false);
 </script>
 <div class="container">
     <div class="space-between">
         <h1>Project Selection</h1>
         <div class="button-holder">
-            <button class="primary-button">+ Create New</button>
+            <button class="primary-button" onclick={() => (showModal = true)}>+ Create New</button>
             <button class="secondary-button" style="padding: 4px 10px;"><img src="/img/import.svg" alt="" style="background:none;"></button>
         </div>
     </div>
@@ -75,7 +77,62 @@
         {/if}
     </div>
 </div>
+<Modal bind:showModal>
+	{#snippet header()}
+		<h2>Create Project</h2>
+	{/snippet}
+
+	<div class="cols">
+        <div class="half">
+            <label for="name">Project Name</label>
+            <input type="text" id="name" name="name">
+            <div class="cols">
+                <div class="half">
+                    <label for="date">Start Date</label>
+                    <input type="date">
+                </div>
+                <div class="half">
+                    <label for="time">Time:</label>
+                    <input type="time">
+                </div>
+            </div>
+            <div class="cols">
+                <div class="half">
+                    <label for="analyst">Analyst Initials</label>
+                    <input type="text" placeholder="e.g. E.M.">
+                </div>
+            </div>
+            <label for="desc">Project Description</label>
+            <textarea name="desc" id="desc" rows="20"></textarea>
+        </div>
+        <div class="half">
+            <div class="button-holder" style="width: 100%; justify-content: space-between;">
+                <p>Upload NMap</p>
+                <button class="secondary-button">Select Files</button>
+            </div>
+        </div>
+    </div>
+</Modal>
 <style>
+    .cols{
+        display: flex;
+        width: 100%;
+        gap: 40px;
+    }
+    label{
+        color: gray;
+    }
+    .half{
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    textarea, input[type="text"], input[type="date"], input[type="time"]{
+        border-radius: 5px;
+        padding: 10px;
+        width: 100%;
+    }
     button{
         cursor: pointer;
     }
