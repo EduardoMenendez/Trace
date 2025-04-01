@@ -1,35 +1,28 @@
 <script>
     import '../css/global.css';
-    import { goto } from '$app/navigation'; // Import for SvelteKit navigation
+    import { goto } from '$app/navigation';
 
     let role = '';
     let initials = '';
     let errorMessage = '';
 
-    // Define the accepted roles
     const acceptedRoles = ['LEAD', 'ANALYST'];
+
+    $: trimmedInitials = initials.trim().toUpperCase();
+    $: isRoleValid = acceptedRoles.includes(role);
+    $: isInitialsValid = /^[A-Z]{2,3}$/.test(trimmedInitials);
+    $: isFormValid = isRoleValid && isInitialsValid;
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log("Form submitted!");  // Debugging log
-
-        const trimmedRole = role.trim().toUpperCase();
-        // Validate the role
-        if (!acceptedRoles.includes(trimmedRole)) {
-            errorMessage = 'Invalid role. Please enter again.';
-            console.log("Validation failed!");  // Debugging log
+        if (!isFormValid) {
+            errorMessage = 'Please select a valid role and provide valid initials.';
             return;
         }
-        // Clear any previous error messages
         errorMessage = '';
-
-        // Proceed with form submission logic
-        console.log("Validation passed!"); 
-        console.log("Role:", trimmedRole);
-        console.log("Initials:", initials);
-        goto('/dashboard'); 
+        initials = trimmedInitials;
+        goto('/dashboard');
     };
-    
 </script>
 
 <div class="container">
@@ -37,10 +30,24 @@
         <h1>TRACE</h1>
         <form on:submit={handleSubmit}>
             <label for="role">Role</label>
-            <input type="text" id="role" bind:value={role} placeholder="role...">
+            <select id="role" bind:value={role}>
+                <option value="">Select a role</option>
+                <option value="LEAD">Lead</option>
+                <option value="ANALYST">Analyst</option>
+            </select>
+
             <label for="initials">Initials</label>
-            <input type="text" id="initials" bind:value={initials} placeholder="e.g. AP">
-            <button type="submit">Sign In</button>
+            <input
+                type="text"
+                id="initials"
+                bind:value={initials}
+                placeholder="e.g. AP"
+                on:input={() => {
+                    initials = initials.toUpperCase();
+                }}
+            />
+
+            <button type="submit" disabled={!isFormValid}>Sign In</button>
             {#if errorMessage}
                 <p class="error">{errorMessage}</p>
             {/if}
@@ -49,7 +56,6 @@
 </div>
 
 <style>
-
     .container {
         display: flex;
         justify-content: center;
@@ -59,7 +65,6 @@
         background-repeat: no-repeat;
         background-size: cover;
         height: 100vh;
-    
     }
 
     .card {
@@ -88,7 +93,7 @@
         font-weight: bold;
     }
 
-    input {
+    select, input {
         padding: 10px;
         border: 1px solid #ccc;
         border-radius: 5px;
@@ -106,7 +111,18 @@
         margin-top: 10px;
     }
 
-    button:hover {
+    button:disabled {
+        background-color: #666;
+        cursor: not-allowed;
+    }
+
+    button:hover:enabled {
         background-color: #333;
+    }
+
+    .error {
+        color: red;
+        font-size: 12px;
+        margin-top: 10px;
     }
 </style>
