@@ -1,4 +1,4 @@
-from typing import Optional, final
+from typing import Optional, final, Dict, Any
 
 @final
 class RequestManager:
@@ -28,14 +28,14 @@ class RequestManager:
     """
 
     def __init__(
-        self, 
-        method: str, 
-        url: str, 
-        data: Optional[dict] = None,
-        headers: Optional[dict] = None,
-        parameters: Optional[dict] = None, 
-        cookies: Optional[dict] = None,
-        proxies: Optional[dict] = None
+        self,
+        method: str,
+        url: str,
+        data: Optional[Dict[str, Any]] = None,
+        headers: Optional[Dict[str, str]] = None,
+        parameters: Optional[Dict[str, str | int | float | bool]] = None,
+        cookies: Optional[Dict[str, str]] = None,
+        proxies: Optional[Dict[str, str]] = None
     ):
         self._method = method
         self._target_url = url
@@ -51,17 +51,17 @@ class RequestManager:
     def get_target_url(self) -> str:
         return self._target_url
 
-    def get_data(self) -> Optional[dict]:
+    def get_data(self) -> Optional[Dict[str, Any]]:
         return self._data
 
-    def get_headers(self) -> Optional[dict]:
+    def get_headers(self) -> Optional[Dict[str, str]]:
         return self._headers
 
-    def get_parameters(self) -> Optional[dict]:
+    def get_parameters(self) -> Optional[Dict[str, str | int | float | bool]]:
         return self._parameters
 
-    def get_cookies(self) -> Optional[dict]:
+    def get_cookies(self) -> Optional[Dict[str, str]]:
         return self._cookies
 
-    def get_proxies(self) -> Optional[dict]:
+    def get_proxies(self) -> Optional[Dict[str, str]]:
         return self._proxies
