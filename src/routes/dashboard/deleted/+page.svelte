@@ -1,5 +1,8 @@
 <script>
     import {projects} from '$lib/data/projects';
+    import { user } from '$lib/stores/user';
+    console.log($user);
+
 </script>
 <div class="container">
     <h1>Deleted Projects</h1>

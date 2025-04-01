@@ -2,6 +2,12 @@
     import {projects, shared} from '$lib/data/projects';
     import { goto } from '$app/navigation';
     import Modal from '$lib/components/modal.svelte';
+    import { user } from '$lib/stores/user';
+    import Alert from '$lib/components/Alert.svelte';
+
+    
+    console.log($user);
+
     const recents = [
         {title: "Base Perimeter Network", date: "Nov 7, 2024"},
         {title: "Mission Control Portal", date: "Nov 6, 2024"},
@@ -9,22 +15,40 @@
         {title: "Government Defense", date: "Nov 4, 2024"},
     ];
     let active = "My Projects";
-    /**
+    let showModal = false;
+    let alertMessage = "";
+    let showAlert = false;
+    /*
    * @param {string} option
    */
     function updateState(option) {
         active = option;
     }
-    let showModal = $state(false);
+    // Function to handle the creation of a new project 
+    function handleCreateProject() {
+        if ($user.role === 'LEAD') {
+            showModal = true;
+        } else {
+            alertMessage = "As an Analyst, you cannot perform this task";
+            showAlert = true;
+        }
+    }
+    function dismissAlert() {
+      showAlert = false;
+    }
 </script>
 <div class="container">
     <div class="space-between">
         <h1>Project Selection</h1>
         <div class="button-holder">
-            <button class="primary-button" onclick={() => (showModal = true)}>+ Create New</button>
+            <!-- <button class="primary-button" onclick={() => (showModal = true)}>+ Create New</button> -->
+            <button class="primary-button" onclick={handleCreateProject}>+ Create New</button>
             <button class="secondary-button" style="padding: 4px 10px;"><img src="/img/import.svg" alt="" style="background:none;"></button>
         </div>
     </div>
+    <!-- alert component -->
+    <Alert message={alertMessage} visible={showAlert} onDismiss={dismissAlert} />
+
     <h2>Recent Projects</h2>
     <div class="recent">
         {#each recents as recent}
