@@ -1,5 +1,8 @@
 <script>
-    import {folders} from '$lib/data/folders';
+    import { user } from '$lib/stores/user';
+    import {folders} from '$lib/data/folders';  
+    console.log($user);
+
     const recents = [
         {title: "Recon Week 6", date: "Nov 7, 2024"},
         {title: "High Security 3", date: "Nov 6, 2024"},

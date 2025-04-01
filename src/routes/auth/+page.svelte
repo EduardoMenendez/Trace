@@ -1,6 +1,7 @@
 <script>
     import '../css/global.css';
     import { goto } from '$app/navigation'; // Import for SvelteKit navigation
+    import { user } from '$lib/stores/user';
 
     let role = '';
     let initials = '';
@@ -22,7 +23,8 @@
         }
         // Clear any previous error messages
         errorMessage = '';
-
+        // update the user store with the role and initials
+        user.set({ role: trimmedRole, initials });
         // Proceed with form submission logic
         console.log("Validation passed!"); 
         console.log("Role:", trimmedRole);

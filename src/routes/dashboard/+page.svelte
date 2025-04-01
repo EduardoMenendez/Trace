@@ -2,6 +2,10 @@
     import {projects, shared} from '$lib/data/projects';
     import { goto } from '$app/navigation';
     import Modal from '$lib/components/modal.svelte';
+    import { user } from '$lib/stores/user';
+    
+    console.log($user);
+
     const recents = [
         {title: "Base Perimeter Network", date: "Nov 7, 2024"},
         {title: "Mission Control Portal", date: "Nov 6, 2024"},
@@ -9,19 +13,28 @@
         {title: "Government Defense", date: "Nov 4, 2024"},
     ];
     let active = "My Projects";
+    let showModal = false;
     /**
    * @param {string} option
    */
     function updateState(option) {
         active = option;
     }
-    let showModal = $state(false);
+     // Función para manejar el clic del botón "Create New"
+     function handleCreateProject() {
+        if ($user.role === 'LEAD') {
+            showModal = true;
+        } else {
+            alert("As an analyst you are not able to create a project");
+        }
+    }
 </script>
 <div class="container">
     <div class="space-between">
         <h1>Project Selection</h1>
         <div class="button-holder">
-            <button class="primary-button" onclick={() => (showModal = true)}>+ Create New</button>
+            <!-- <button class="primary-button" onclick={() => (showModal = true)}>+ Create New</button> -->
+            <button class="primary-button" onclick={handleCreateProject}>+ Create New</button>
             <button class="secondary-button" style="padding: 4px 10px;"><img src="/img/import.svg" alt="" style="background:none;"></button>
         </div>
     </div>
