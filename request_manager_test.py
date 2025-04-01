@@ -64,7 +64,7 @@ def test_full_initialization_with_all_attributes(
 
 def test_empty_container_initialization():
     manager = RequestManager(
-        method="GET",g
+        method="GET",
         url=EXAMPLE_URL,
         headers={},
         parameters={}
