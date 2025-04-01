@@ -3,6 +3,10 @@
 </script>
 <nav>
     <img src="/img/logo.png" alt="logo" class="logo">
+    <div class="nav-options">
+        <a href="/dashboard">Dashboard</a>
+        <a href="/dashboard/settings">Settings</a>
+    </div>
 </nav>
 <div class="container">
     <h1>Elevate Your Security <br/>Strategy with TRACE</h1>
@@ -18,6 +22,20 @@
     padding: 40px;
     align-items: center;
     height: 8vh;
+}
+.nav-options{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.nav-options>a{
+    color: gray;
+    text-decoration: none;
+    font-size: 15px;
+    margin-inline: 20px;
+    font-weight: 500;
 }
 .container{
     display: flex;
