@@ -1,0 +1,19 @@
+{
+  "node_id": "http://172.21.0.1:5173",
+  "name": "172.21.0.1:5173",
+  "severity": "Low",
+  "children": [
+    {
+      "node_id": "http://172.21.0.1:5173/dashboard",
+      "name": "dashboard",
+      "severity": "Info",
+      "children": []
+    },
+    {
+      "node_id": "http://172.21.0.1:5173/login",
+      "name": "login",
+      "severity": "Info",
+      "children": []
+    }
+  ]
+}

@@ -1,0 +1,116 @@
+{
+	"info": {
+		"_postman_id": "fd6132b2-7ff4-4285-b16d-bada2731a311",
+		"name": "Trace",
+		"description": "Testing routes of backend",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28380715"
+	},
+	"item": [
+		{
+			"name": "Crawler",
+			"item": [
+				{
+					"name": "Crawler",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "target_url",
+									"value": "http://172.21.0.1:5173/",
+									"type": "default"
+								},
+								{
+									"key": "user_agent",
+									"value": "Mozilla/5.0",
+									"type": "default"
+								},
+								{
+									"key": "proxy",
+									"value": "",
+									"type": "default",
+									"disabled": true
+								},
+								{
+									"key": "delay",
+									"value": "1",
+									"type": "default"
+								},
+								{
+									"key": "dictionary",
+									"type": "file",
+									"src": "/C:/Users/edume/OneDrive/Documents/GitHub/Trace/backend/dictionaries/test.txt"
+								},
+								{
+									"key": "project_id",
+									"value": "46220511-dcb7-4028-85dc-335bff4666b0",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8000/crawl",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"crawl"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Outputs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/projects/46220511-dcb7-4028-85dc-335bff4666b0/crawls",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"projects",
+								"46220511-dcb7-4028-85dc-335bff4666b0",
+								"crawls"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Tree",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/projects/46220511-dcb7-4028-85dc-335bff4666b0/outputs/172.21.0.1_5173/tree",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"projects",
+								"46220511-dcb7-4028-85dc-335bff4666b0",
+								"outputs",
+								"172.21.0.1_5173",
+								"tree"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Crawler requests"
+		}
+	]
+}
