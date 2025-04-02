@@ -1,13 +1,32 @@
 <script>
     import { goto } from '$app/navigation';
-    const sites = [
-        {parent: '192.168.1.25:8080', severity: 'Medium'},
-        {parent: '192.168.3.27:8080', severity: 'Medium'},
-        {parent: '192.168.2.26:8080', severity: 'Low'},
-        {parent: '192.168.4.28:8080', severity: 'Low'},
-        {parent: '192.168.5.29:8080', severity: 'High'},
-        {parent: '192.168.6.30:8080', severity: 'Medium'},
-    ]
+    import { onMount } from 'svelte';
+    import { page } from '$app/stores';
+
+    let sites = [];
+    const projectId =  $page.params.project_id; 
+
+    onMount(async () => {
+        try {
+            // console.log(`http://172.21.0.3:8000/projects/${projectId}/crawls`);
+            const res = await fetch(`http://localhost:8000/projects/${projectId}/crawls`);
+            if (!res.ok) throw new Error("Failed to fetch sites");
+            const data = await res.json();
+
+            // Optional: Set a default severity if missing
+            sites = data.targets.map(target => ({
+                parent: target.host.replace(/_/g, ":"),
+                severity: target.severity ?? "Low",
+                host: target.host
+            }));
+        } catch (err) {
+            console.error("Error loading sites:", err);
+        }
+    });
+
+    function viewTree(site) {
+        goto(`tree/WebTree/${site.host.replace(":", /_/)}`);
+    }
 </script>
 <div class="container">
     <h1>Tree Graph</h1>
@@ -20,7 +39,7 @@
             <div class={"holder "+site.severity}></div>
             <p style="text-align: left; padding-left: 20px;">{site.parent}</p>
             <p style="text-align: left;">{site.severity}</p>
-            <button class="primary-button" onclick={()=>{goto('tree/WebTree')}}>View</button>
+            <button class="primary-button" on:click={() => viewTree(site)}>View</button>
         </div>
     {/each}
 </div>

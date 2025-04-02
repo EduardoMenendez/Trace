@@ -2,11 +2,28 @@
   // @ts-nocheck
   import { onMount } from "svelte";
   import * as d3 from "d3";
-  import { treeData } from "$lib/data/treeData.js";
+  import { page } from '$app/stores';
+  import { get } from 'svelte/store';
 
+  let treeData = null;
   let treeContainer;
 
-  onMount(() => {
+  const projectId = $page.params.project_id;
+  const host = $page.params.host;
+
+  onMount(async () => {
+    try {
+      const res = await fetch(`http://localhost:8000/projects/${projectId}/outputs/${host}/tree`);
+      if (!res.ok) throw new Error("Failed to fetch tree data");
+      treeData = await res.json();
+
+      drawTree(treeData);
+    } catch (err) {
+      console.error("Error loading tree data:", err);
+    }
+  });
+
+  function drawTree(treeData) {
     const width = 800, height = 500;
 
     const svg = d3.select(treeContainer)
@@ -18,11 +35,9 @@
 
     const treeLayout = d3.tree().size([width - 100, height - 100]);
 
-    // convert the flat data into a hierarchy
     const root = d3.hierarchy(treeData, d => d.children);
     treeLayout(root);
 
-    // Draw links
     svg.selectAll("line")
       .data(root.links())
       .enter()
@@ -33,7 +48,6 @@
       .attr("y2", d => d.target.y - 20)
       .attr("stroke", "#ccc");
 
-    // draw nodes
     const nodeGroup = svg.selectAll(".node")
       .data(root.descendants())
       .enter()
@@ -41,7 +55,6 @@
       .attr("class", "node")
       .attr("transform", d => `translate(${d.x - 75}, ${d.y - 30})`);
 
-    // each node is a group with a rectangle and text
     nodeGroup.append("rect")
       .attr("width", 150)
       .attr("height", 60)
@@ -50,7 +63,6 @@
       .attr("rx", 5)
       .attr("ry", 5);
 
-    //  ID (node_id)
     nodeGroup.append("text")
       .attr("x", 75)
       .attr("y", 20)
@@ -59,7 +71,6 @@
       .style("fill", "#555")
       .text(d => d.data.node_id);
 
-    // Name
     nodeGroup.append("text")
       .attr("x", 75)
       .attr("y", 35)
@@ -69,7 +80,6 @@
       .style("fill", "#000")
       .text(d => d.data.name);
 
-    // Severity 
     nodeGroup.append("text")
       .attr("x", 75)
       .attr("y", 50)
@@ -81,8 +91,11 @@
         return "green";
       })
       .text(d => `Severity: ${d.data.severity}`);
-  });
+  }
 </script>
+
+<div bind:this={treeContainer}></div>
+
 <div class="container">
   
   <h1>Tree Graph</h1>
