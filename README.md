@@ -1,38 +1,26 @@
-# sv
+# Trace Full Stack (SvelteKit + FastAPI + Docker)
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+This project provides a Dockerized development environment for a full stack app using:
 
-## Creating a project
+- **Frontend**: SvelteKit (Vite)
+- **Backend**: FastAPI (Python)
+- **Dev Tools**: Docker + Docker Compose
 
-If you're seeing this, you've probably already done this step. Congrats!
+---
 
-```bash
-# create a new project in the current directory
-npx sv create
+## 🚀 Getting Started
 
-# create a new project in my-app
-npx sv create my-app
-```
+### ✅ Prerequisites
 
-## Developing
+Before you can run the project, make sure you have the following installed:
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/)
+  - After installation, **start Docker Desktop** so the Docker daemon is running.
+  - On Windows, make sure Docker is configured to use **WSL 2** or **Hyper-V**.
 
-```bash
-npm run dev
+> **⚠️ IMPORTANT:** After installing Docker Desktop, you must **start Docker Desktop manually** or set it to run on login.  
+> On Windows, open the Start menu and launch **Docker Desktop**. Wait until you see the whale icon in the system tray and it says "Docker Desktop is running."
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
+## 🔧 How to Run the Project
 
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+docker-compose up --build
