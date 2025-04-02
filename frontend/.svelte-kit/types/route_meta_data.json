@@ -1,0 +1,16 @@
+{
+	"/": [],
+	"/auth": [],
+	"/dashboard": [],
+	"/dashboard/WebTree": [],
+	"/dashboard/deleted": [],
+	"/dashboard/folders": [],
+	"/dashboard/settings": [],
+	"/[project_id]": [],
+	"/[project_id]/ai": [],
+	"/[project_id]/results": [],
+	"/[project_id]/tools": [],
+	"/[project_id]/tools/HttpClient": [],
+	"/[project_id]/tree": [],
+	"/[project_id]/tree/WebTree": []
+}
