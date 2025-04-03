@@ -29,7 +29,7 @@
         console.log("Validation passed!"); 
         console.log("Role:", trimmedRole);
         console.log("Initials:", initials);
-        goto('/dashboard'); 
+        goto('../dashboard'); 
     };
     
 </script>
